@@ -4,7 +4,7 @@
 //
 
 const int sensor_pin = A0;
-const int led_pin = 9;
+const int led_pin = 11;
 const int wait = 10;
 const size_t history_size = 30;
 
@@ -19,6 +19,8 @@ void setup() {
   for( int i = 0; i < history_size; i++ ) {
     sensor_history[ i ] = 0;
   }
+
+  pinMode( sensor_pin, INPUT );
   pinMode(led_pin, OUTPUT);
   Serial.begin(9600);
 }
@@ -34,6 +36,8 @@ void loop() {
   counter = counter % history_size;
   sensor_history[ counter ] = sensor_value;
   counter++;
+
+  print_history( sensor_history, history_size );
   
   delay( wait );
 }
