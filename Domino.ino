@@ -31,13 +31,13 @@ void loop() {
   int avg = get_average( sensor_history, history_size );
   int delta = get_delta( avg, sensor_value );
   
-  statergy02( led_pin, delta, threshold, duration );
+  Serial.println( delta );
+  
+  statergy01( led_pin, delta, threshold  );
   
   counter = counter % history_size;
   sensor_history[ counter ] = sensor_value;
   counter++;
-
-  print_history( sensor_history, history_size );
   
   delay( wait );
 }
@@ -73,7 +73,7 @@ int get_average( int * history, size_t len ){
 }
 
 int get_delta( int avg, int value ) {
-  int diff = avg - value;
+  int diff = value - avg;
   float result = ( (float) diff / (float)avg ) * 100;
   return (int)result;
 }
